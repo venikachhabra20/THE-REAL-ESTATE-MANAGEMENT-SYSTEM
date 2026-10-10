@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Properties - Real Estate Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h2>Real Estate Management System</h2>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="properties.html">Properties</a>
+            <a href="agents.html">Agents</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="properties">
+            <h1>Available Properties</h1>
+            <p>
+                Here you can find information about the properties
+                available in our system.
+            </p>
+
+            <div class="property-list" id="propertyList">
+                <p>Loading properties...</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Real Estate Management System © 2026</p>
+    </footer>
+
+    <script>
+        async function loadProperties() {
+            const propertyList = document.getElementById("propertyList");
+
+            try {
+                const response = await fetch("api/properties");
+
+                if (!response.ok) {
+                    throw new Error("Could not load properties");
+                }
+
+                const properties = await response.json();
+                propertyList.innerHTML = "";
+
+                if (properties.length === 0) {
+                    propertyList.textContent = "No properties available.";
+                    return;
+                }
+
+                properties.forEach(property => {
+                    const card = document.createElement("div");
+                    card.className = "property-card";
+
+                    const title = document.createElement("h3");
+                    title.textContent = property.title;
+                    card.appendChild(title);
+
+                    function addDetail(label, value) {
+                        const p = document.createElement("p");
+                        const strong = document.createElement("strong");
+                        strong.textContent = label + ": ";
+                        p.appendChild(strong);
+                        p.appendChild(document.createTextNode(value ?? "N/A"));
+                        card.appendChild(p);
+                    }
+
+                    addDetail("Location", property.location);
+                    addDetail("Price", "₹" + Number(property.price).toLocaleString("en-IN"));
+                    addDetail("Type", property.property_type);
+                    addDetail("Status", property.status);
+                    addDetail("Bedrooms", property.bedrooms);
+                    addDetail("Bathrooms", property.bathrooms);
+                    addDetail("Area", property.area_sqft + " sq. ft.");
+
+                    propertyList.appendChild(card);
+                });
+            } catch (error) {
+                propertyList.textContent =
+                    "Properties could not be loaded. Please check the server and try again.";
+                console.error(error);
+            }
+        }
+
+        loadProperties();
+    </script>
+</body>
+</html>
