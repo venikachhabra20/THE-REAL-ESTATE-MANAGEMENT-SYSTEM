@@ -1,10 +1,13 @@
 
+
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,37 +19,41 @@ public class PropertiesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
-            throws IOException {
+            throws ServletException, IOException {
 
-        response.setContentType("application/json;charset=UTF-8");
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        String sql = "SELECT * FROM properties";
 
         try (Connection con = DBConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement(
-                     "SELECT property_id, title, description, location, " +
-                     "price, property_type, status, bedrooms, bathrooms, area_sqft " +
-                     "FROM properties");
+             PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery();
              PrintWriter out = response.getWriter()) {
 
             out.print("[");
+
             boolean first = true;
 
             while (rs.next()) {
+
                 if (!first) {
                     out.print(",");
                 }
 
                 out.print("{");
-                out.print("\"property_id\":" + rs.getInt("property_id") + ",");
-                out.print("\"title\":\"" + escape(rs.getString("title")) + "\",");
-                out.print("\"description\":\"" + escape(rs.getString("description")) + "\",");
-                out.print("\"location\":\"" + escape(rs.getString("location")) + "\",");
-                out.print("\"price\":" + rs.getBigDecimal("price") + ",");
-                out.print("\"property_type\":\"" + escape(rs.getString("property_type")) + "\",");
-                out.print("\"status\":\"" + escape(rs.getString("status")) + "\",");
-                out.print("\"bedrooms\":" + rs.getInt("bedrooms") + ",");
-                out.print("\"bathrooms\":" + rs.getInt("bathrooms") + ",");
-                out.print("\"area_sqft\":" + rs.getInt("area_sqft"));
+                out.print("\"property_id\":"
+                        + rs.getInt("property_id") + ",");
+
+                out.print("\"title\":\""
+                        + escapeJson(rs.getString("title")) + "\",");
+
+                out.print("\"price\":"
+                        + rs.getBigDecimal("price") + ",");
+
+                out.print("\"location\":\""
+                        + escapeJson(rs.getString("location")) + "\"");
+
                 out.print("}");
 
                 first = false;
@@ -57,20 +64,16 @@ public class PropertiesServlet extends HttpServlet {
         } catch (Exception e) {
             response.setStatus(
                     HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.setContentType("application/json;charset=UTF-8");
 
-            try {
-                response.getWriter().print(
-                        "{\"error\":\"Unable to load properties from database\"}");
-            } catch (IOException ignored) {
-                // Response could not be written.
+            try (PrintWriter out = response.getWriter()) {
+                out.print("{\"error\":\"Database query failed\"}");
             }
 
             e.printStackTrace();
         }
     }
 
-    private String escape(String value) {
+    private String escapeJson(String value) {
         if (value == null) {
             return "";
         }
@@ -78,7 +81,6 @@ public class PropertiesServlet extends HttpServlet {
         return value.replace("\\", "\\\\")
                     .replace("\"", "\\\"")
                     .replace("\n", "\\n")
-                    .replace("\r", "\\r")
-                    .replace("\t", "\\t");
+                    .replace("\r", "\\r");
     }
 }

@@ -1,4 +1,3 @@
-
 public class Property {
 
     private int propertyId;

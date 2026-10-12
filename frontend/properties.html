@@ -1,84 +1,434 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Properties - Real Estate Management System</title>
-
+    <title>Properties | Real Estate Management System</title>
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        .properties-section {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .page-heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-heading h1 {
+            color: #17365d;
+            font-size: 32px;
+        }
+
+        .page-heading p {
+            color: #666;
+        }
+
+        .filters {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .filters input,
+        .filters select {
+            flex: 1;
+            min-width: 170px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background: white;
+        }
+
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 22px;
+        }
+
+        .property-card {
+            background: white;
+            border: 1px solid #e4e8ef;
+            border-radius: 10px;
+            padding: 22px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s;
+        }
+
+        .property-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .property-type {
+            display: inline-block;
+            background: #edf2f8;
+            color: #17365d;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        .property-card h2 {
+            color: #17365d;
+            font-size: 21px;
+            margin: 5px 0 10px;
+        }
+
+        .property-location {
+            color: #666;
+            margin-bottom: 14px;
+        }
+
+        .property-price {
+            font-size: 23px;
+            color: #b8860b;
+            font-weight: bold;
+            margin: 12px 0;
+        }
+
+        .property-detail {
+            color: #444;
+            margin: 9px 0;
+            font-size: 14px;
+        }
+
+        .property-btn {
+            display: block;
+            text-align: center;
+            background: #17365d;
+            color: white;
+            text-decoration: none;
+            padding: 11px;
+            border-radius: 6px;
+            margin-top: 17px;
+        }
+
+        .property-btn:hover {
+            background: #285488;
+        }
+
+        .results-count {
+            color: #666;
+            margin-bottom: 18px;
+        }
+
+        .empty-message {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 30px;
+            color: #666;
+        }
+
+        .demo-note {
+            color: #888;
+            font-size: 12px;
+            margin-top: 12px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background: #17365d;
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
 
     <header>
-        <h2>Real Estate Management System</h2>
-
-       <nav>
-    <a href="index.html">Home</a>
-    <a href="properties.html">Properties</a>
-    <a href="agents.html">Agents</a>
-    <a href="contact.html">Contact</a>
-</nav>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="properties.html">Properties</a>
+            <a href="agents.html">Agents</a>
+            <a href="contact.html">Contact</a>
+        </nav>
     </header>
 
+    <section class="properties-section">
 
-    <main>
+        <div class="page-heading">
+            <h1>Explore Properties</h1>
+            <p>Find houses, apartments, villas and plots in your preferred location.</p>
+        </div>
 
-        <section class="properties">
+        <div class="filters">
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="Search by name or location..."
+                aria-label="Search properties"
+            >
 
-            <h1>Available Properties</h1>
+            <select id="typeFilter" aria-label="Filter by property type">
+                <option value="All">All Property Types</option>
+                <option value="Apartment">Apartment</option>
+                <option value="House">House</option>
+                <option value="Villa">Villa</option>
+                <option value="Plot">Plot</option>
+                <option value="Commercial">Commercial</option>
+            </select>
 
-            <p>
-                Here you can find information about the properties
-                available in our system.
-            </p>
+            <select id="sortFilter" aria-label="Sort properties">
+                <option value="default">Sort by Price</option>
+                <option value="low">Price: Low to High</option>
+                <option value="high">Price: High to Low</option>
+            </select>
+        </div>
 
+        <p class="results-count" id="resultsCount"></p>
 
-            <div class="property-list">
+        <div class="property-grid" id="propertyGrid"></div>
 
-                <div class="property-card">
-                    <h3>3 BHK Apartment</h3>
-                    <p><strong>Location:</strong> Greater Noida</p>
-                    <p><strong>Price:</strong> ₹75,00,000</p>
-                    <p><strong>Type:</strong> Apartment</p>
-                    <p><strong>Status:</strong> Available</p>
+        <p class="demo-note">
+            Note: Listings and prices shown are sample data for project demonstration.
+        </p>
 
-                    <button>View Details</button>
-                </div>
-
-
-                <div class="property-card">
-                    <h3>2 BHK Flat</h3>
-                    <p><strong>Location:</strong> Noida</p>
-                    <p><strong>Price:</strong> ₹55,00,000</p>
-                    <p><strong>Type:</strong> Flat</p>
-                    <p><strong>Status:</strong> Available</p>
-
-                    <button>View Details</button>
-                </div>
-
-
-                <div class="property-card">
-                    <h3>Residential Plot</h3>
-                    <p><strong>Location:</strong> Ghaziabad</p>
-                    <p><strong>Price:</strong> ₹40,00,000</p>
-                    <p><strong>Type:</strong> Plot</p>
-                    <p><strong>Status:</strong> Available</p>
-
-                    <button>View Details</button>
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
+    </section>
 
     <footer>
-        <p>Real Estate Management System © 2026</p>
+        <p>&copy; 2026 Real Estate Management System. All rights reserved.</p>
     </footer>
+
+    <script>
+        // Sample property dataset for demonstration.
+        const properties = [
+            {
+                id: 1,
+                name: "Green Valley Apartment",
+                location: "Greater Noida West",
+                type: "Apartment",
+                price: 4500000,
+                area: 1200,
+                bedrooms: 3,
+                bathrooms: 2
+            },
+            {
+                id: 2,
+                name: "Sunrise Family House",
+                location: "Alpha II, Greater Noida",
+                type: "House",
+                price: 8500000,
+                area: 1800,
+                bedrooms: 4,
+                bathrooms: 3
+            },
+            {
+                id: 3,
+                name: "Royal Heights Villa",
+                location: "Noida Extension",
+                type: "Villa",
+                price: 12500000,
+                area: 2400,
+                bedrooms: 4,
+                bathrooms: 4
+            },
+            {
+                id: 4,
+                name: "City View Apartment",
+                location: "Sector 75, Noida",
+                type: "Apartment",
+                price: 6200000,
+                area: 1450,
+                bedrooms: 3,
+                bathrooms: 2
+            },
+            {
+                id: 5,
+                name: "Residential Plot A-12",
+                location: "Yamuna Expressway",
+                type: "Plot",
+                price: 3500000,
+                area: 1200,
+                bedrooms: 0,
+                bathrooms: 0
+            },
+            {
+                id: 6,
+                name: "Modern Duplex House",
+                location: "Sector 150, Noida",
+                type: "House",
+                price: 11000000,
+                area: 2100,
+                bedrooms: 4,
+                bathrooms: 3
+            },
+            {
+                id: 7,
+                name: "Premium Studio Apartment",
+                location: "Pari Chowk, Greater Noida",
+                type: "Apartment",
+                price: 2800000,
+                area: 650,
+                bedrooms: 1,
+                bathrooms: 1
+            },
+            {
+                id: 8,
+                name: "Independent Family Villa",
+                location: "Delta I, Greater Noida",
+                type: "Villa",
+                price: 14500000,
+                area: 2800,
+                bedrooms: 5,
+                bathrooms: 4
+            },
+            {
+                id: 9,
+                name: "Commercial Office Space",
+                location: "Sector 62, Noida",
+                type: "Commercial",
+                price: 7500000,
+                area: 1500,
+                bedrooms: 0,
+                bathrooms: 1
+            },
+            {
+                id: 10,
+                name: "Corner Residential Plot",
+                location: "Knowledge Park, Greater Noida",
+                type: "Plot",
+                price: 4200000,
+                area: 1500,
+                bedrooms: 0,
+                bathrooms: 0
+            },
+            {
+                id: 11,
+                name: "Affordable City Apartment",
+                location: "Sector 16B, Greater Noida West",
+                type: "Apartment",
+                price: 3800000,
+                area: 1050,
+                bedrooms: 2,
+                bathrooms: 2
+            },
+            {
+                id: 12,
+                name: "Luxury Independent House",
+                location: "Sector 37, Noida",
+                type: "House",
+                price: 16500000,
+                area: 3000,
+                bedrooms: 5,
+                bathrooms: 4
+            }
+        ];
+
+        const propertyGrid = document.getElementById("propertyGrid");
+        const searchInput = document.getElementById("searchInput");
+        const typeFilter = document.getElementById("typeFilter");
+        const sortFilter = document.getElementById("sortFilter");
+        const resultsCount = document.getElementById("resultsCount");
+
+        function formatPrice(price) {
+            if (price >= 10000000) {
+                return "₹" + (price / 10000000).toFixed(2) + " Crore";
+            }
+
+            return "₹" + (price / 100000).toFixed(0) + " Lakh";
+        }
+
+        function displayProperties() {
+            const searchText = searchInput.value.toLowerCase().trim();
+            const selectedType = typeFilter.value;
+            const sortOrder = sortFilter.value;
+
+            let filteredProperties = properties.filter(property => {
+                const matchesSearch =
+                    property.name.toLowerCase().includes(searchText) ||
+                    property.location.toLowerCase().includes(searchText);
+
+                const matchesType =
+                    selectedType === "All" ||
+                    property.type === selectedType;
+
+                return matchesSearch && matchesType;
+            });
+
+            if (sortOrder === "low") {
+                filteredProperties.sort((a, b) => a.price - b.price);
+            } else if (sortOrder === "high") {
+                filteredProperties.sort((a, b) => b.price - a.price);
+            }
+
+            propertyGrid.replaceChildren();
+            resultsCount.textContent =
+                filteredProperties.length + " properties found";
+
+            if (filteredProperties.length === 0) {
+                const emptyMessage = document.createElement("p");
+                emptyMessage.className = "empty-message";
+                emptyMessage.textContent =
+                    "No properties found. Try a different search.";
+                propertyGrid.appendChild(emptyMessage);
+                return;
+            }
+
+            filteredProperties.forEach(property => {
+                const card = document.createElement("article");
+                card.className = "property-card";
+
+                const type = document.createElement("span");
+                type.className = "property-type";
+                type.textContent = property.type;
+
+                const title = document.createElement("h2");
+                title.textContent = property.name;
+
+                const location = document.createElement("p");
+                location.className = "property-location";
+                location.textContent = "Location: " + property.location;
+
+                const price = document.createElement("p");
+                price.className = "property-price";
+                price.textContent = formatPrice(property.price);
+
+                const area = document.createElement("p");
+                area.className = "property-detail";
+                area.textContent = "Area: " + property.area + " sq. ft.";
+
+                const rooms = document.createElement("p");
+                rooms.className = "property-detail";
+                rooms.textContent = property.bedrooms > 0
+                    ? "Bedrooms: " + property.bedrooms +
+                      " | Bathrooms: " + property.bathrooms
+                    : "Bathrooms: " + property.bathrooms +
+                      " | Bedrooms: Not applicable";
+
+                const button = document.createElement("a");
+                button.className = "property-btn";
+                button.href = "contact.html";
+                button.textContent = "Enquire Now";
+
+                card.append(
+                    type,
+                    title,
+                    location,
+                    price,
+                    area,
+                    rooms,
+                    button
+                );
+
+                propertyGrid.appendChild(card);
+            });
+        }
+
+        searchInput.addEventListener("input", displayProperties);
+        typeFilter.addEventListener("change", displayProperties);
+        sortFilter.addEventListener("change", displayProperties);
+
+        displayProperties();
+    </script>
 
 </body>
 </html>
+```

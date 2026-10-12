@@ -1,128 +1,230 @@
 ```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Contact Us - Real Estate Management System</title>
+    <title>Contact Us | Real Estate Management System</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        .contact-section {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .contact-heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .contact-heading h1 {
+            color: #17365d;
+            font-size: 34px;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .contact-info,
+        .contact-form {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.10);
+        }
+
+        .contact-info h2,
+        .contact-form h2 {
+            color: #17365d;
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            margin: 15px 0;
+            color: #555;
+            overflow-wrap: anywhere;
+        }
+
+        .contact-form label {
+            display: block;
+            margin: 12px 0 6px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+        }
+
+        .contact-form button {
+            width: 100%;
+            margin-top: 18px;
+            padding: 13px;
+            background: #17365d;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .contact-form button:hover {
+            background: #24558c;
+        }
+
+        .contact-form button:disabled {
+            opacity: 0.7;
+            cursor: wait;
+        }
+
+        .note {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-top: 12px;
+        }
+
+        footer {
+            text-align: center;
+            background: #17365d;
+            color: white;
+            padding: 20px;
+            margin-top: 40px;
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- Header -->
     <header>
-        <h2>Real Estate Management System</h2>
-
         <nav>
-    <a href="index.html">Home</a>
-    <a href="properties.html">Properties</a>
-    <a href="agents.html">Agents</a>
-    <a href="contact.html">Contact</a>
-</nav>
+            <a href="index.html">Home</a>
+            <a href="properties.html">Properties</a>
+            <a href="agents.html">Agents</a>
+            <a href="contact.html">Contact</a>
+        </nav>
     </header>
 
-
-    <!-- Contact Section -->
     <section class="contact-section">
 
         <div class="contact-heading">
             <h1>Contact Us</h1>
-
-            <p>
-                Have a question about a property?
-                Get in touch with us and we will be happy to help.
-            </p>
+            <p>Have a question about a property? Send us a message.</p>
         </div>
-
 
         <div class="contact-container">
 
-            <!-- Contact Information -->
             <div class="contact-info">
+                <h2>Get in Touch</h2>
 
-                <h2>Get In Touch</h2>
-
-                <p>
-                    We are here to help you find the right property
-                    and provide the information you need.
+                <p><strong>Email:</strong>
+                    <a href="mailto:venikachhabra20@gmail.com">
+                        venikachhabra20@gmail.com
+                    </a>
                 </p>
 
-                <div class="info-box">
-                    <h3>Address</h3>
-                    <p>Greater Noida, Uttar Pradesh</p>
-                </div>
+                <p><strong>Demo Contact 1:</strong> +91 90000 00001</p>
+                <p><strong>Demo Contact 2:</strong> +91 90000 00002</p>
 
-                <div class="info-box">
-                    <h3>Phone</h3>
-                    <p>+91 98765 43210</p>
-                </div>
+                <p><strong>Office:</strong> Real Estate Management System</p>
 
-                <div class="info-box">
-                    <h3>Email</h3>
-                    <p>realestate@example.com</p>
-                </div>
-
+                <p class="note">
+                    The phone numbers above are placeholders for demonstration,
+                    not verified business contact numbers.
+                </p>
             </div>
 
-
-            <!-- Contact Form -->
             <div class="contact-form">
-
                 <h2>Send Us a Message</h2>
 
-                <form>
+                <form
+                    action="https://formsubmit.co/venikachhabra20@gmail.com"
+                    method="POST"
+                >
 
-                    <label for="name">Name</label>
+                    <input
+                        type="hidden"
+                        name="_subject"
+                        value="New Real Estate Website Enquiry"
+                    >
+
+                    <input
+                        type="hidden"
+                        name="_captcha"
+                        value="true"
+                    >
+
+                    <label for="name">Your Name</label>
                     <input
                         type="text"
                         id="name"
+                        name="name"
                         placeholder="Enter your name"
                         required
                     >
 
-                    <label for="email">Email</label>
+                    <label for="email">Your Email</label>
                     <input
                         type="email"
                         id="email"
+                        name="email"
                         placeholder="Enter your email"
                         required
                     >
 
-                    <label for="phone">Phone</label>
+                    <label for="phone">Phone Number</label>
                     <input
                         type="tel"
                         id="phone"
+                        name="phone"
                         placeholder="Enter your phone number"
                     >
 
-                    <label for="message">Message</label>
+                    <label for="message">Your Message</label>
                     <textarea
                         id="message"
+                        name="message"
                         rows="5"
                         placeholder="Write your message here..."
+                        required
                     ></textarea>
 
-                    <button type="submit">Send Message</button>
+                    <button type="submit" id="submitButton">
+                        Send Message
+                    </button>
+
+                    <p class="note">
+                        Your message will be submitted through our email form
+                        service. First-time email verification may be required.
+                    </p>
 
                 </form>
-
             </div>
 
         </div>
-
     </section>
 
-
-    <!-- Footer -->
     <footer>
-        <p>Real Estate Management System © 2026</p>
+        <p>&copy; 2026 Real Estate Management System. All rights reserved.</p>
     </footer>
 
 </body>
-
 </html>
 ```
