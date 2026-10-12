@@ -1,16 +1,191 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Properties - Real Estate Management System</title>
+
+    <title>Properties | Real Estate Management System</title>
+
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #263445;
+        }
+
+        header {
+            background: #163b65;
+            color: white;
+            padding: 20px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        header h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #ffd166;
+        }
+
+        .properties {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .properties h1 {
+            text-align: center;
+            color: #163b65;
+            font-size: 34px;
+            margin-bottom: 12px;
+        }
+
+        .intro {
+            text-align: center;
+            color: #687586;
+            margin-bottom: 35px;
+            line-height: 1.6;
+        }
+
+        .property-list {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(260px, 1fr)
+            );
+            gap: 25px;
+        }
+
+        .property-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 25px;
+            box-shadow: 0 5px 18px rgba(22, 59, 101, 0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(22, 59, 101, 0.14);
+        }
+
+        .property-card h3 {
+            color: #163b65;
+            font-size: 21px;
+            line-height: 1.4;
+            margin: 0 0 15px;
+        }
+
+        .property-price {
+            color: #13804a;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+
+        .property-card p {
+            margin: 12px 0;
+            color: #4b5563;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .property-card strong {
+            color: #263445;
+        }
+
+        .property-status {
+            display: inline-block;
+            background: #e4f7eb;
+            color: #147744;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .message {
+            grid-column: 1 / -1;
+            text-align: center;
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            color: #526174;
+        }
+
+        footer {
+            background: #163b65;
+            color: white;
+            text-align: center;
+            padding: 18px;
+            margin-top: 40px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 18px;
+            }
+
+            header h2 {
+                font-size: 20px;
+            }
+
+            nav {
+                gap: 14px;
+            }
+
+            .properties {
+                margin: 20px auto;
+                padding: 15px;
+            }
+
+            .properties h1 {
+                font-size: 28px;
+            }
+
+            .property-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
+
     <header>
         <h2>Real Estate Management System</h2>
+
         <nav>
             <a href="index.html">Home</a>
             <a href="properties.html">Properties</a>
@@ -21,76 +196,172 @@
 
     <main>
         <section class="properties">
+
             <h1>Available Properties</h1>
-            <p>
-                Here you can find information about the properties
-                available in our system.
+
+            <p class="intro">
+                Explore available properties and find the perfect
+                place for your home or business.
             </p>
 
             <div class="property-list" id="propertyList">
-                <p>Loading properties...</p>
+                <p class="message">Loading properties...</p>
             </div>
+
         </section>
     </main>
 
     <footer>
-        <p>Real Estate Management System © 2026</p>
+        <p>Real Estate Management System &copy; 2026</p>
     </footer>
 
     <script>
         async function loadProperties() {
-            const propertyList = document.getElementById("propertyList");
+            const propertyList =
+                document.getElementById("propertyList");
 
             try {
                 const response = await fetch("api/properties");
 
                 if (!response.ok) {
-                    throw new Error("Could not load properties");
+                    throw new Error(
+                        "API request failed: " + response.status
+                    );
                 }
 
-                const properties = await response.json();
-                propertyList.innerHTML = "";
+                const data = await response.json();
+
+                // The API may return an array or an object
+                // containing a properties array.
+                const properties = Array.isArray(data)
+                    ? data
+                    : data.properties;
+
+                if (!Array.isArray(properties)) {
+                    throw new Error(
+                        "Unexpected properties data format"
+                    );
+                }
+
+                propertyList.replaceChildren();
 
                 if (properties.length === 0) {
-                    propertyList.textContent = "No properties available.";
+                    const message = document.createElement("p");
+                    message.className = "message";
+                    message.textContent =
+                        "No properties are available right now.";
+
+                    propertyList.appendChild(message);
                     return;
                 }
 
-                properties.forEach(property => {
-                    const card = document.createElement("div");
+                properties.forEach(function(property) {
+                    const card = document.createElement("article");
                     card.className = "property-card";
 
+                    // Property title
                     const title = document.createElement("h3");
-                    title.textContent = property.title;
+                    title.textContent =
+                        property.title || "Property Listing";
+
                     card.appendChild(title);
 
+                    // Property price
+                    const price = document.createElement("div");
+                    price.className = "property-price";
+
+                    const numericPrice = Number(property.price);
+
+                    price.textContent =
+                        property.price !== null &&
+                        property.price !== undefined &&
+                        property.price !== "" &&
+                        Number.isFinite(numericPrice)
+                            ? numericPrice.toLocaleString("en-IN", {
+                                style: "currency",
+                                currency: "INR",
+                                maximumFractionDigits: 0
+                            })
+                            : "Price on request";
+
+                    card.appendChild(price);
+
+                    // Add property details safely
                     function addDetail(label, value) {
-                        const p = document.createElement("p");
-                        const strong = document.createElement("strong");
+                        const paragraph =
+                            document.createElement("p");
+
+                        const strong =
+                            document.createElement("strong");
+
                         strong.textContent = label + ": ";
-                        p.appendChild(strong);
-                        p.appendChild(document.createTextNode(value ?? "N/A"));
-                        card.appendChild(p);
+
+                        paragraph.appendChild(strong);
+
+                        paragraph.appendChild(
+                            document.createTextNode(
+                                value === null ||
+                                value === undefined ||
+                                value === ""
+                                    ? "N/A"
+                                    : String(value)
+                            )
+                        );
+
+                        card.appendChild(paragraph);
                     }
 
                     addDetail("Location", property.location);
-                    addDetail("Price", "₹" + Number(property.price).toLocaleString("en-IN"));
                     addDetail("Type", property.property_type);
-                    addDetail("Status", property.status);
                     addDetail("Bedrooms", property.bedrooms);
                     addDetail("Bathrooms", property.bathrooms);
-                    addDetail("Area", property.area_sqft + " sq. ft.");
+
+                    addDetail(
+                        "Area",
+                        property.area_sqft !== null &&
+                        property.area_sqft !== undefined
+                            ? property.area_sqft + " sq. ft."
+                            : "N/A"
+                    );
+
+                    // Availability status
+                    const statusParagraph =
+                        document.createElement("p");
+
+                    const statusBadge =
+                        document.createElement("span");
+
+                    statusBadge.className = "property-status";
+                    statusBadge.textContent =
+                        property.status || "Status unknown";
+
+                    statusParagraph.appendChild(statusBadge);
+                    card.appendChild(statusParagraph);
 
                     propertyList.appendChild(card);
                 });
+
             } catch (error) {
-                propertyList.textContent =
-                    "Properties could not be loaded. Please check the server and try again.";
-                console.error(error);
+                console.error(
+                    "Unable to load properties:",
+                    error
+                );
+
+                propertyList.replaceChildren();
+
+                const message = document.createElement("p");
+                message.className = "message";
+                message.textContent =
+                    "Properties could not be loaded. " +
+                    "Please check the server and try again.";
+
+                propertyList.appendChild(message);
             }
         }
 
         loadProperties();
     </script>
+
 </body>
 </html>
+```
