@@ -1,139 +1,120 @@
 # Online Real Estate Management System
 
-**A Java-Based Web Application**
+A Java-based web application designed to simplify property management and help users explore real estate listings through a clean, user-friendly interface.
 
 ## Project Overview
 
-The Online Real Estate Management System is a web-based application designed to simplify property searching and management. It provides a platform for users to explore property listings and for property managers to organize property and agent information.
-
-## Objectives
-
-- Provide a user-friendly property browsing interface.
-- Organize property and agent information.
-- Store and retrieve information using MySQL.
-- Demonstrate Java, Object-Oriented Programming (OOP), and database connectivity.
-- Develop a modular web application.
+The Online Real Estate Management System provides a central platform for displaying property information and organizing real estate-related details. It combines a web interface with Java technologies and a MySQL database.
 
 ## Key Features
 
-- **Home Page:** Introduction to the platform.
-- **Properties:** Interface for browsing property listings.
-- **Agents:** Section for displaying agent information.
-- **Contact:** Contact information and inquiry interface.
-- **Database:** MySQL-based data storage.
-- **Java Backend:** Server-side application logic.
+- **Home Page:** Introduction to the real estate platform.
+- **Property Listings:** Browse and view available property information.
+- **Agent Directory:** View real estate agent details.
+- **Contact Page:** Access contact information.
+- **Login and Registration Interfaces:** Pages for user sign-in and account registration.
+- **Database Integration:** MySQL database support for storing and managing project data.
+- **Java Backend:** Uses Java web technologies and Jakarta Servlets.
+
+*Note: Features requiring backend authentication or database operations depend on the relevant code and database configuration being implemented and tested.*
 
 ## Technologies Used
 
 | Technology | Purpose |
 |---|---|
+| Java (JDK 17+) | Backend development |
 | HTML5 | Web page structure |
 | CSS3 | Styling and layout |
-| JavaScript | Client-side interactions, where implemented |
-| Java | Backend logic |
-| Jakarta Servlets | Web request handling |
-| JDBC | Database connectivity |
 | MySQL | Database management |
-| Apache Maven | Build and dependency management |
-| Apache Tomcat | Web application server |
-| Git and GitHub | Version control |
+| JDBC | Java–database connectivity |
+| Jakarta Servlets | Server-side request handling |
+| Apache Maven | Project build and dependency management |
+| Apache Tomcat 10 | Web application server |
 
 ## Project Structure
 
 ```text
 THE-REAL-ESTATE-MANAGEMENT-SYSTEM/
 ├── frontend/
+├── real_estate.sql/
+│   └── real_estate.sql
 ├── src/
 │   └── main/
-├── real_estate.sql/
+│       ├── java/
+│       └── webapp/
 ├── pom.xml
-├── README.md
-└── .gitignore
+└── README.md
 ```
 
-## Prerequisites
+The exact files inside `src/main/` may vary according to the current project version.
 
-- Java Development Kit (JDK) 17
+## Requirements
+
+Before running the project, install:
+
+- JDK 17 or later
+- MySQL Server and MySQL Workbench
 - Apache Maven
-- MySQL Server
-- MySQL Workbench (optional)
-- Compatible Apache Tomcat server
-- Visual Studio Code or another Java IDE
+- Apache Tomcat 10.1 or another compatible Tomcat 10 release
 
-## Installation and Setup
+## Database Setup
 
-### 1. Clone the Repository
+1. Start MySQL Server and open MySQL Workbench.
+2. Open the SQL script at `real_estate.sql/real_estate.sql`.
+3. Execute the script to create the database and its tables.
+4. Configure the database connection settings for your local environment.
+5. Ensure the database name, username, password, host, and port match your configuration.
 
-```bash
-git clone https://github.com/venikachhabra20/THE-REAL-ESTATE-MANAGEMENT-SYSTEM.git
-```
+**Security:** Never commit database passwords, API keys, or other private credentials to GitHub.
 
-Open the cloned project directory in your preferred IDE.
+## Build the Project
 
-### 2. Set Up the Database
-
-1. Open MySQL Workbench.
-2. Locate the SQL script in the `real_estate.sql/` directory.
-3. Execute the SQL script.
-4. Verify that the database and tables have been created successfully.
-
-### 3. Configure Database Connectivity
-
-Update the database connection settings in the relevant Java configuration file using your local MySQL credentials.
-
-**Security note:** Never upload database passwords or other private credentials to GitHub.
-
-### 4. Build the Project
-
-Open a terminal in the directory containing `pom.xml` and run:
+Open a terminal in the project root directory and run:
 
 ```bash
 mvn clean package
 ```
 
-Resolve any build errors before deployment.
+After a successful build, the WAR file should be generated at:
 
-### 5. Run the Application
+```text
+target/real-estate.war
+```
 
-If the project is configured for WAR packaging, deploy the generated WAR file to a compatible Apache Tomcat server. Start Tomcat and open the application using its configured URL.
+## Run the Application
 
-The exact deployment steps depend on the project's configuration.
+1. Build the project using Maven.
+2. Deploy `target/real-estate.war` to a compatible Apache Tomcat 10 server.
+3. Start Tomcat.
+4. Open the application in your browser.
 
-## Database
+Example local URLs:
 
-The project uses MySQL to store and manage real estate information. The included SQL script defines the database schema, tables, relationships, sample records, indexes, and views.
+- Home page: `http://localhost:8080/real-estate/`
+- Properties page: `http://localhost:8080/real-estate/properties.html`
+- Properties API: `http://localhost:8080/real-estate/api/properties`
+- Database test endpoint: `http://localhost:8080/real-estate/test-db`
 
-## Application Architecture
+These endpoints work only if the corresponding pages, servlets, and database configuration are present and running correctly.
 
-1. **Presentation Layer:** HTML, CSS, and frontend resources.
-2. **Application Layer:** Java backend logic and servlet request handling.
-3. **Data Layer:** MySQL database access through JDBC.
+## Project Objectives
 
-## Future Enhancements
+- Organize real estate property information in one place.
+- Provide a simple interface for exploring property listings.
+- Demonstrate Java web application development.
+- Apply database concepts using MySQL and JDBC.
+- Practice modular project organization and web application deployment.
 
-- User registration and login.
-- Advanced property search and filtering.
-- Property booking and inquiry management.
-- Administrative dashboard.
-- Property image uploads.
-- Improved validation and error handling.
-- Responsive design enhancements.
-- Additional security and testing.
-
-## Project Team
+## Team Members
 
 - Venika Chhabra
 - Priyanshi
-- Ananya
+- Ananya Roy
 
-## Academic Project
+## Repository
 
-Developed as an academic project to demonstrate Java programming, web application development, database management, and software engineering concepts.
+GitHub: https://github.com/venikachhabra20/THE-REAL-ESTATE-MANAGEMENT-SYSTEM
 
-## License
+## Conclusion
 
-This project is intended for educational and academic purposes.
-
----
-
-**GitHub Repository:** [THE-REAL-ESTATE-MANAGEMENT-SYSTEM](https://github.com/venikachhabra20/THE-REAL-ESTATE-MANAGEMENT-SYSTEM)
+The Online Real Estate Management System is an academic project demonstrating the use of Java web technologies, a web-based user interface, and relational database concepts in a real estate application.
