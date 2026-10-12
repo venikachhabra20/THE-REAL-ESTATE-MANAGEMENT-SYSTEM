@@ -53,7 +53,7 @@ THE-REAL-ESTATE-MANAGEMENT-SYSTEM/
 
 ## Prerequisites
 
-- Java JDK
+- Java Development Kit (JDK) 17
 - Apache Maven
 - MySQL Server
 - MySQL Workbench (optional)
@@ -68,16 +68,20 @@ THE-REAL-ESTATE-MANAGEMENT-SYSTEM/
 git clone https://github.com/venikachhabra20/THE-REAL-ESTATE-MANAGEMENT-SYSTEM.git
 ```
 
+Open the cloned project directory in your preferred IDE.
+
 ### 2. Set Up the Database
 
 1. Open MySQL Workbench.
-2. Locate the SQL file in the repository.
+2. Locate the SQL script in the `real_estate.sql/` directory.
 3. Execute the SQL script.
-4. Verify the database and tables created.
+4. Verify that the database and tables have been created successfully.
 
 ### 3. Configure Database Connectivity
 
-Update the database connection settings in the relevant Java configuration file using your local MySQL credentials. Never upload database passwords or other private credentials to GitHub.
+Update the database connection settings in the relevant Java configuration file using your local MySQL credentials.
+
+**Security note:** Never upload database passwords or other private credentials to GitHub.
 
 ### 4. Build the Project
 
@@ -93,9 +97,11 @@ Resolve any build errors before deployment.
 
 If the project is configured for WAR packaging, deploy the generated WAR file to a compatible Apache Tomcat server. Start Tomcat and open the application using its configured URL.
 
+The exact deployment steps depend on the project's configuration.
+
 ## Database
 
-The project uses MySQL for storing and managing real estate information. Refer to the included SQL files for the database schema and table definitions.
+The project uses MySQL to store and manage real estate information. The included SQL script defines the database schema, tables, relationships, sample records, indexes, and views.
 
 ## Application Architecture
 
