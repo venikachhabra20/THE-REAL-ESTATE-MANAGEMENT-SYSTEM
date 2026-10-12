@@ -15,7 +15,7 @@ use real_estate_systemdb;
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     phone VARCHAR(15),
-    experience INT DEFAULT 0
+    experience INT DEFAULT 0);
 CREATE TABLE  properties (
     property_id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(150) NOT NULL,
