@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | FindMyprop</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f4f7fc;
+            color: #172b4d;
+        }
+
+        nav {
+            height: 76px;
+            padding: 0 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            border-bottom: 1px solid #e7edf5;
+        }
+
+        .logo {
+            font-size: 23px;
+            font-weight: 800;
+            color: #12366b;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #c59b45;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #334765;
+            font-size: 14px;
+        }
+
+        .main {
+            padding: 45px 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .register-card {
+            width: 100%;
+            max-width: 510px;
+            padding: 38px 42px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 45px rgba(20, 48, 91, 0.10);
+        }
+
+        .eyebrow {
+            color: #b38a3e;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            color: #173866;
+            font-size: 30px;
+            margin-bottom: 9px;
+        }
+
+        .subtitle {
+            color: #78869a;
+            font-size: 14px;
+            margin-bottom: 27px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #263d5c;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #dce4ef;
+            border-radius: 7px;
+            outline: none;
+            font-size: 14px;
+            background: #fbfcff;
+            color: #172b4d;
+        }
+
+        input:focus, select:focus {
+            border-color: #285b9d;
+            box-shadow: 0 0 0 3px rgba(40,91,157,0.08);
+        }
+
+        input::placeholder {
+            color: #a3adbd;
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 14px;
+            background: #173d73;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 5px;
+            transition: 0.2s;
+        }
+
+        .register-btn:hover {
+            background: #245595;
+        }
+
+        .bottom-text {
+            text-align: center;
+            margin-top: 23px;
+            font-size: 13px;
+            color: #78869a;
+        }
+
+        .bottom-text a {
+            color: #1c4c89;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .back-home {
+            display: block;
+            text-align: center;
+            margin-top: 19px;
+            color: #526783;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #7c899b;
+            font-size: 12px;
+        }
+
+        @media (max-width: 500px) {
+            .register-card {
+                padding: 30px 23px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">FindMy<span>prop</span></div>
+        <a href="index.html">← Back to Home</a>
+    </nav>
+
+    <main class="main">
+        <section class="register-card">
+
+            <div class="eyebrow">JOIN OUR COMMUNITY</div>
+
+            <h1>Create Your Account</h1>
+
+            <p class="subtitle">
+                Register to discover and manage your properties.
+            </p>
+
+            <form action="register" method="post">
+
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your full name"
+                        required
+                        maxlength="100"
+                        autocomplete="name">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email address"
+                        required
+                        maxlength="150"
+                        autocomplete="email">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Create password"
+                            required
+                            minlength="8"
+                            maxlength="72"
+                            autocomplete="new-password">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            placeholder="Re-enter password"
+                            required
+                            minlength="8"
+                            maxlength="72"
+                            autocomplete="new-password">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="role">Account Type</label>
+                    <select id="role" name="role" required>
+                        <option value="USER" selected>Regular User</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="register-btn">
+                    Create Account →
+                </button>
+
+            </form>
+
+            <div class="bottom-text">
+                Already have an account?
+                <a href="login.html">Sign In</a>
+            </div>
+
+            <a href="index.html" class="back-home">
+                Return to Homepage
+            </a>
+
+        </section>
+    </main>
+
+    <footer>
+        © 2026 Real Estate Management System. All rights reserved.
+    </footer>
+
+</body>
+</html>
